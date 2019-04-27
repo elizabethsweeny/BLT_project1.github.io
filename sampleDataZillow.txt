@@ -1,0 +1,47 @@
+<result>
+	<zpid>15660648</zpid>
+	<links>
+		<homedetails>https://www.zillow.com/homedetails/948-Grant-St-Vallejo-CA-94590/15660648_zpid/</homedetails>
+		<graphsanddata>http://www.zillow.com/homedetails/948-Grant-St-Vallejo-CA-94590/15660648_zpid/#charts-and-data</graphsanddata>
+		<mapthishome>http://www.zillow.com/homes/15660648_zpid/</mapthishome>
+		<comparables>http://www.zillow.com/homes/comps/15660648_zpid/</comparables>
+	</links>
+	<address>
+		<street>948 Grant St</street>
+		<zipcode>94590</zipcode>
+		<city>Vallejo</city>
+		<state>CA</state>
+		<latitude>38.083449</latitude>
+		<longitude>-122.237855</longitude>
+	</address>
+	<zestimate>
+		<amount currency="USD">382859</amount>
+		<last-updated>04/22/2019</last-updated>
+		<oneWeekChange deprecated="true"/>
+		<valueChange/>
+		<valuationRange>
+			<low currency="USD">363716</low>
+			<high currency="USD">405831</high>
+		</valuationRange>
+		<percentile>0</percentile>
+	</zestimate>
+	<rentzestimate>
+		<amount currency="USD">2250</amount>
+		<last-updated>04/22/2019</last-updated>
+		<oneWeekChange deprecated="true"/>
+		<valueChange duration="30" currency="USD">65</valueChange>
+		<valuationRange>
+			<low currency="USD">2048</low>
+			<high currency="USD">2498</high>
+		</valuationRange>
+	</rentzestimate>
+	<localRealEstate>
+		<region name="South Vallejo" id="805965" type="neighborhood">
+			<links>
+				<overview>http://www.zillow.com/local-info/CA-Vallejo/South-Vallejo/r_805965/</overview>
+				<forSaleByOwner>http://www.zillow.com/south-vallejo-vallejo-ca/fsbo/</forSaleByOwner>
+				<forSale>http://www.zillow.com/south-vallejo-vallejo-ca/</forSale>
+			</links>
+		</region>
+	</localRealEstate>
+</result>
