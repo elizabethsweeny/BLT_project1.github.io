@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
-    // ZILLOW API Key: X1-ZWz1h1dha4cc97_68qz7
-    var ZILLOW_API_ID = 'X1-ZWz1h1dha4cc97_68qz7';
+    var ATTOM_API_KEY = '736f1130096aa92549d800921bca8e8c';
+    var ZILLOW_API_KEY = 'X1-ZWz1h1dha4cc97_68qz7';
 
     var parseXml;
 
@@ -21,42 +21,109 @@ $(document).ready(function () {
         throw new Error("No XML parser found");
     }
 
-    $('#zillowCallButton').on('click', function (s) {
+    function makeAjaxGetCall(queryURL, extraHeaders, dataParams, callBack) {
 
-        var ZillowURL = "https://www.zillow.com/webservice/GetSearchResults.htm";
+        var ajaxHeaders = {
+            //'Access-Control-Allow-Origin': '*',
+            //'Access-Control-Allow-Methods': 'GET'
+        };
+
+        for (var key in extraHeaders) {
+            if (extraHeaders.hasOwnProperty(key)) {
+                ajaxHeaders[key] = extraHeaders[key];
+            }
+        }
 
         $.ajax({
                 type: "GET",
-                dataType: "xml",
-                contentType: 'text/xml',
-                crossDomain: true,
+                //dataType: "json",
+                //contentType: 'text/json',
                 jsonp: "callback",
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'GET'
-                },
-                url: ZillowURL,
-                data: {
-                    'zws-id': ZILLOW_API_ID,
-                    'address': '948 Grant St',
-                    'citystatezip': '94590',
-                    'rentzestimate': true,
-                    'output': 'xml'
-                },
                 crossDomain: true,
-                success: function (xmlResponse, e) {
-                    var xmlResult = $(xmlResponse).find('result')[0];
-
+                headers: ajaxHeaders,
+                url: queryURL,
+                data: dataParams,
+                success: function (response, e) {
+                    callBack(response);
                 }
             })
             .done(function (data) {
                 console.log("done");
             })
             .fail(function (xhr, textStatus, errorThrown) {
-                alert(xhr.responseText);
-                alert(textStatus);
+                console.log(xhr.responseText);
+                console.log(textStatus);
             });
 
+    }
+
+    $('#ATTOM_PROPERTY_ADDRESS_BUTTON').on('click', function (s, e) {
+
+        var url = 'https://search.onboard-apis.com/propertyapi/v1.0.0/property/address';
+        var zipCode = '94105';
+        var pageNumber = 1;
+        var pageSize = 20;
+
+        var data = {
+            'postalcode': zipCode,
+            'page': pageNumber,
+            'pagesize': pageSize
+        }
+        var headers = {
+            'Accept': 'application/json',
+            'apikey': '736f1130096aa92549d800921bca8e8c'
+        }
+
+        function responseHandler(response) {
+            var printedText = JSON.stringify(response, undefined, 4);
+            document.getElementById('ATTOM_PROPERTY_ADDRESS__textarea').value = printedText;
+        }
+
+        makeAjaxGetCall(url, headers, data, responseHandler);
 
     });
+
+    $('#ATTOM_SCHOOLS_SNAPSHOT_BUTTON').on('click', function (s, e) {
+
+        var url = 'https://search.onboard-apis.com/propertyapi/v1.0.0/school/snapshot';
+        var data = {
+            'latitude': '39.731234',
+            'longitude': '-75.581182',
+            'radius': '5',
+            'filetypetext': 'private'
+        }
+        var headers = {
+            'Accept': 'application/json',
+            'apikey': '736f1130096aa92549d800921bca8e8c'
+        }
+
+        function responseHandler(response) {
+            var printedText = JSON.stringify(response, undefined, 4);
+            document.getElementById('ATTOM_SCHOOLS_SNAPSHOT__textarea').value = printedText;
+        }
+
+        makeAjaxGetCall(url, headers, data, responseHandler);
+
+    });
+
+    $('#ATTOM_COMMUNITY_ATTRIBUTES_BUTTON').on('click', function (s, e) {
+
+        var url = 'https://search.onboard-apis.com/communityapi/v2.0.0/attribute/lookup';
+        var data = {
+        }
+        var headers = {
+            'Accept': 'application/json',
+            'apikey': '736f1130096aa92549d800921bca8e8c'
+        }
+
+        function responseHandler(response) {
+            var printedText = JSON.stringify(response, undefined, 4);
+            document.getElementById('ATTOM_COMMUNITY_ATTRIBUTES__textarea').value = printedText;
+        }
+
+        makeAjaxGetCall(url, headers, data, responseHandler);
+
+    });
+
+
 });

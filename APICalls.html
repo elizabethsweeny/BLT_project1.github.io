@@ -16,11 +16,80 @@
 </head>
 
 <body class="container">
-
-    <div class="row">
-        <button type="button" class="btn btn-primary" id="zillowCallButton">Call</button>
+    <br>
+    <h2>ATTOM CALLS - Property</h2>
+    <div class="row mt-3">
+        <div class="col-md-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Get a list of properties within a zip code. Use propertytype and order by to narrow down your
+                        results.<br>
+                        <b>https://search.onboard-apis.com/propertyapi/v1.0.0/property/address?postalcode=94105&page=1&pagesize=100</b>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary" id="ATTOM_PROPERTY_ADDRESS_BUTTON">Get Data</button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <textarea name="ATTOM_PROPERTY_ADDRESS__textarea" class="form-control"
+                id="ATTOM_PROPERTY_ADDRESS__textarea" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+    <br>
+    <h2>ATTOM CALLS - Schools</h2>
+    <div class="row mt-3">
+        <div class="col-md-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Search for all schools that are located within a given radius around a given latitude and
+                        longitude.<br>
+                        <b>https://search.onboard-apis.com/propertyapi/v1.0.0/school/snapshot?latitude=39.731234&longitude=-75.581182&radius=5&filetypetext=private</b>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary" id="ATTOM_SCHOOLS_SNAPSHOT_BUTTON">Get Data</button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <textarea name="ATTOM_SCHOOLS_SNAPSHOT__textarea" class="form-control"
+                id="ATTOM_SCHOOLS_SNAPSHOT__textarea" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+    <h2>ATTOM CALLS - Community</h2>
+    <div class="row mt-3">
+        <div class="col-md-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">
+                            This lookup returns the full list of over 375 data fields that are available in the Community API.<br>
+                        <b>https://search.onboard-apis.com/communityapi/v2.0.0/attribute/lookup</b>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary" id="ATTOM_COMMUNITY_ATTRIBUTES_BUTTON">Get Data</button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <textarea name="ATTOM_COMMUNITY_ATTRIBUTES__textarea" class="form-control"
+                id="ATTOM_COMMUNITY_ATTRIBUTES__textarea" cols="30" rows="10"></textarea>
+        </div>
     </div>
 
+    <h2>GOOGLE CHART API - Graphs</h2>
+    <div id="chart_div"></div>
+    
     <!-- Added link to the jQuery Library -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
@@ -34,6 +103,44 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/app.js"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Mushrooms', 3],
+          ['Onions', 1],
+          ['Olives', 1],
+          ['Zucchini', 1],
+          ['Pepperoni', 2]
+        ]);
+
+        // Set chart options
+        var options = {'title':'How Much Pizza I Ate Last Night',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+
 
 </body>
 
