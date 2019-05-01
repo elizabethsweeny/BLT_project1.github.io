@@ -19,15 +19,47 @@
 
   <div class="card text-center">
         <div class="card-header">
-          Featured
+          <h3>BLT Team: Project 1</h3>
         </div>
+    <br>
+        <form>
+            <h6>Input two zip codes to compare statistics about each area.</h6>
+            <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Zip Code #1">
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Zip Code #2">
+              </div>
+            </div><br>
+            <button type="submit" class="btn btn-primary">Compare Zip Codes</button>
+          </form>
+          <hr>
+
         <div class="card-body">
-          <h5 class="card-title"> title </h5>
-          <p class="card-text"> supporting text</p>
-          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-        </div>
+          <div class="row">
+            <div class="col-6" id="readingGraphArea">
+              <h6>Costs of Reading</h6>
+                <figure class="figure">
+                    <img src="assets/images/blankbarchart.png" class="figure-img img-fluid rounded" alt="A generic placeholder graph" id="readingGraph">
+                    <figcaption class="figure-caption">Comparing the costs associated with magazine and newspaper subscriptions and non-subscriptions and books.<br><small>(100=National Average)</small></figcaption>
+                  </figure>
+            </div>
+            <div class="col-6" id="popDensityGraphArea">
+                <h6>Population Density Comparison</h6>
+                <figure class="figure">
+                    <img src="assets/images/blankpiechart.png" class="figure-img img-fluid rounded" alt="A generic placeholder graph" id="populationGraph">
+                    <figcaption class="figure-caption">Compares five different statistics:
+                      <br><small>Population Density (# of people / square mile)</small>
+                      <br><small>Projected Population (in 10 years)</small>
+                      <br><small>Median Age of Population</small>
+                      <br><small>Average Household Size (# of people/household)</small>
+                      <br><small>Projected Household Size (# of people/household in 10 years)</small></figcaption>
+                  </figure>
+              </div>
+          </div>
         <div class="card-footer text-muted">
-          footer info
+          Learn more about the team! <br><strong>Github usernames: </strong>fabienmp, gunnerson, elizabethsweeny
         </div>
       </div>
 
