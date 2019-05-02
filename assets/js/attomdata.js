@@ -25,6 +25,7 @@ function grabZipCodeData(zipCode1, zipCode2) {
             $("#compareZipCodeButton").attr("disabled", false);
             $("#compareZipCodeButton").html('Compare Zip Codes');
             $('#loadingSign').addClass('hiddenSign');
+            $('#carouselExampleControls').removeClass('hiddenSign');
 
             google.charts.load('current', {
                 packages: ['corechart', 'bar']
@@ -43,46 +44,28 @@ function grabZipCodeData(zipCode1, zipCode2) {
 
                 var dataZipCode1 = google.visualization.arrayToDataTable([
                     ['Age', 'Total'],
-                    ['0-4', Number.parseInt(zipCode1Data.age00_04)],
-                    ['5-9', Number.parseInt(zipCode1Data.age05_09)],
-                    ['10-14', Number.parseInt(zipCode1Data.age10_14)],
-                    ['15-19', Number.parseInt(zipCode1Data.age15_19)],
-                    ['20-24', Number.parseInt(zipCode1Data.age20_24)],
-                    ['25-29', Number.parseInt(zipCode1Data.age25_29)],
-                    ['30-34', Number.parseInt(zipCode1Data.age30_34)],
-                    ['35-39', Number.parseInt(zipCode1Data.age35_39)],
-                    ['40-44', Number.parseInt(zipCode1Data.age40_44)],
-                    ['45-49', Number.parseInt(zipCode1Data.age45_49)],
-                    ['50-54', Number.parseInt(zipCode1Data.age50_54)],
-                    ['55-59', Number.parseInt(zipCode1Data.age55_59)],
-                    ['60-64', Number.parseInt(zipCode1Data.age60_64)],
-                    ['65-69', Number.parseInt(zipCode1Data.age65_69)],
-                    ['70-74', Number.parseInt(zipCode1Data.age70_74)],
-                    ['75-79', Number.parseInt(zipCode1Data.age75_79)],
-                    ['80-84', Number.parseInt(zipCode1Data.age80_84)],
-                    ['85+', Number.parseInt(zipCode1Data.agegt85)]
+                    ['0-9', Number.parseInt(zipCode1Data.age00_04) + Number.parseInt(zipCode1Data.age05_09)],
+                    ['10-19', Number.parseInt(zipCode1Data.age10_14) + Number.parseInt(zipCode1Data.age15_19)],
+                    ['20-29', Number.parseInt(zipCode1Data.age20_24) + Number.parseInt(zipCode1Data.age25_29)],
+                    ['30-39', Number.parseInt(zipCode1Data.age30_34) + Number.parseInt(zipCode1Data.age35_39)],
+                    ['40-49', Number.parseInt(zipCode1Data.age40_44) + Number.parseInt(zipCode1Data.age45_49)],
+                    ['50-59', Number.parseInt(zipCode1Data.age50_54) + Number.parseInt(zipCode1Data.age55_59)],
+                    ['60-69', Number.parseInt(zipCode1Data.age60_64) + Number.parseInt(zipCode1Data.age65_69)],
+                    ['70-79', Number.parseInt(zipCode1Data.age70_74) + Number.parseInt(zipCode1Data.age75_79)],
+                    ['80-85+', Number.parseInt(zipCode1Data.age80_84) + Number.parseInt(zipCode1Data.agegt85)]
                 ]);
 
                 var dataZipCode2 = google.visualization.arrayToDataTable([
                     ['Age', 'Total'],
-                    ['0-4', Number.parseInt(zipCode2Data.age00_04)],
-                    ['5-9', Number.parseInt(zipCode2Data.age05_09)],
-                    ['10-14', Number.parseInt(zipCode2Data.age10_14)],
-                    ['15-19', Number.parseInt(zipCode2Data.age15_19)],
-                    ['20-24', Number.parseInt(zipCode2Data.age20_24)],
-                    ['25-29', Number.parseInt(zipCode2Data.age25_29)],
-                    ['30-34', Number.parseInt(zipCode2Data.age30_34)],
-                    ['35-39', Number.parseInt(zipCode2Data.age35_39)],
-                    ['40-44', Number.parseInt(zipCode2Data.age40_44)],
-                    ['45-49', Number.parseInt(zipCode2Data.age45_49)],
-                    ['50-54', Number.parseInt(zipCode2Data.age50_54)],
-                    ['55-59', Number.parseInt(zipCode2Data.age55_59)],
-                    ['60-64', Number.parseInt(zipCode2Data.age60_64)],
-                    ['65-69', Number.parseInt(zipCode2Data.age65_69)],
-                    ['70-74', Number.parseInt(zipCode2Data.age70_74)],
-                    ['75-79', Number.parseInt(zipCode2Data.age75_79)],
-                    ['80-84', Number.parseInt(zipCode2Data.age80_84)],
-                    ['85+', Number.parseInt(zipCode2Data.agegt85)]
+                    ['0-9', Number.parseInt(zipCode2Data.age00_04) + Number.parseInt(zipCode2Data.age05_09)],
+                    ['10-19', Number.parseInt(zipCode2Data.age10_14) + Number.parseInt(zipCode2Data.age15_19)],
+                    ['20-29', Number.parseInt(zipCode2Data.age20_24) + Number.parseInt(zipCode2Data.age25_29)],
+                    ['30-39', Number.parseInt(zipCode2Data.age30_34) + Number.parseInt(zipCode2Data.age35_39)],
+                    ['40-49', Number.parseInt(zipCode2Data.age40_44) + Number.parseInt(zipCode2Data.age45_49)],
+                    ['50-59', Number.parseInt(zipCode2Data.age50_54) + Number.parseInt(zipCode2Data.age55_59)],
+                    ['60-69', Number.parseInt(zipCode2Data.age60_64) + Number.parseInt(zipCode2Data.age65_69)],
+                    ['70-79', Number.parseInt(zipCode2Data.age70_74) + Number.parseInt(zipCode2Data.age75_79)],
+                    ['80-85+', Number.parseInt(zipCode2Data.age80_84) + Number.parseInt(zipCode2Data.agegt85)]
                 ]);
 
                 var options = {
@@ -144,7 +127,7 @@ function grabZipCodeData(zipCode1, zipCode2) {
             var zipCode2Data = rawData.response.result.package.item[0];
 
             var data1 = google.visualization.arrayToDataTable([
-                ['Zip Code',
+                [zipCode1,
                     '10 year forecast.',
                     '5 year forecast.',
                     'Current',
@@ -163,7 +146,7 @@ function grabZipCodeData(zipCode1, zipCode2) {
             ]);
 
             var data2 = google.visualization.arrayToDataTable([
-                ['Zip Code',
+                [zipCode2,
                     '10 year forecast.',
                     '5 year forecast.',
                     'Current',
@@ -185,15 +168,12 @@ function grabZipCodeData(zipCode1, zipCode2) {
                 height: 500,
                 title: 'Projected population',
                 chartArea: {
-                    width: '60%'
+                    width: '50%'
                 },
                 //colors: ['#b0120a', '#ffab91'],
                 hAxis: {
                     title: 'Population',
                     minValue: 0
-                },
-                vAxis: {
-                    title: 'Zip Code'
                 }
             };
             var chart1 = new google.visualization.BarChart(document.getElementById('project_pop_chart1'));
