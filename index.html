@@ -12,7 +12,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body class="container-fluid">
@@ -28,12 +28,10 @@
       <div class="col-md-5">
         <input id="zipCode1Input" onkeypress="return isNumber(event)" maxlength="5" type="text" class="form-control"
           placeholder="Zip Code #1">
-
       </div>
       <div class="col-md-5">
         <input id="zipCode2Input" onkeypress="return isNumber(event)" maxlength="5" type="text" class="form-control"
           placeholder="Zip Code #2">
-
       </div>
       <div class="col-md-1"></div>
     </div>
@@ -55,11 +53,13 @@
     </div>
 
     <hr>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-12" id="readingGraphArea">
-        </div>
+    <div class="d-flex justify-content-center" id='loadingSign'>
+      <div class="spinner-border m-5" role="status" style="width: 20rem; height: 20rem;">
+        <span class="sr-only">Loading...</span>
       </div>
+    </div>
+
+    <div class="card-body">
       <div class="row">
         <div class="col-md-6">
           <div id='project_pop_chart1'></div>
@@ -69,20 +69,21 @@
         </div>
       </div>
       <div class="row">
-          <div class="col-md-3">
-            <div id='gender_pop_chart1'></div>
-          </div>
-          <div class="col-md-3">
-              <div id='age_pop_chart1'></div>
-            </div>
-          <div class="col-md-3">
-            <div id='gender_pop_chart2'></div>
-          </div>
-          <div class="col-md-3">
-              <div id='age_pop_chart2'></div>
-            </div>
+        <div class="col-md-3">
+          <div id='gender_pop_chart1'></div>
         </div>
-      <div class="row">
+        <div class="col-md-3">
+          <div id='age_pop_chart1'></div>
+        </div>
+        <div class="col-md-3">
+          <div id='gender_pop_chart2'></div>
+        </div>
+        <div class="col-md-3">
+          <div id='age_pop_chart2'></div>
+        </div>
+      </div>
+
+      <!--<div class="row">
         <div class="col-6">
           <h6>Costs of Reading</h6>
           <figure class="figure">
@@ -106,7 +107,8 @@
               <br><small>Projected Household Size (# of people/household in 10 years)</small></figcaption>
           </figure>
         </div>
-      </div>
+      </div>-->
+      
       <div class="card-footer text-muted">
         Learn more about the team! <br><strong>Github usernames: </strong>fabienmp, gunnerson, elizabethsweeny
       </div>

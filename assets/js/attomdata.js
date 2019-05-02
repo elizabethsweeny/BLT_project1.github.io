@@ -22,6 +22,10 @@ function grabZipCodeData(zipCode1, zipCode2) {
 
         function buildCharts(combinedResponse) {
 
+            $("#compareZipCodeButton").attr("disabled", false);
+            $("#compareZipCodeButton").html('Compare Zip Codes');
+            $('#loadingSign').addClass('hiddenSign');
+
             google.charts.load('current', {
                 packages: ['corechart', 'bar']
             });
