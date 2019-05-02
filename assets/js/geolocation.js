@@ -84,7 +84,7 @@ function fillInEditClntInfoAddress1() {
 
     marker1.setPosition(place.geometry.location);
     marker1.setVisible(true);
-    zipCode1Map.setZoom(12);
+    zipCode1Map.setZoom(13);
 
     for (var i = 0; i < place.address_components.length; i++) {
 
@@ -117,7 +117,7 @@ function fillInEditClntInfoAddress2() {
 
     marker2.setPosition(place.geometry.location);
     marker2.setVisible(true);
-    zipCode2Map.setZoom(12); 
+    zipCode2Map.setZoom(13); 
 
     for (var i = 0; i < place.address_components.length; i++) {
 

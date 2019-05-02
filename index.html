@@ -15,55 +15,68 @@
 
 </head>
 
-<body class="container">
+<body class="container-fluid">
 
   <div class="mt-3 card text-center">
     <div class="card-header">
       <h3>BLT Team: Project 1</h3>
     </div>
     <br>
-    <form>
-      <h6>Input two zip codes to compare statistics about each area.</h6>
-      <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-5">
-          <input id="zipCode1Input" onkeypress="return isNumber(event)" maxlength="5" type="text" class="form-control"
-            placeholder="Zip Code #1">
+    <h6>Input two zip codes to compare statistics about each area.</h6>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+        <input id="zipCode1Input" onkeypress="return isNumber(event)" maxlength="5" type="text" class="form-control"
+          placeholder="Zip Code #1">
 
-        </div>
-        <div class="col-md-5">
-          <input id="zipCode2Input" onkeypress="return isNumber(event)" maxlength="5" type="text" class="form-control"
-            placeholder="Zip Code #2">
-
-        </div>
-        <div class="col-md-1"></div>
       </div>
-      <div class="row mt-1">
-        <div class="col-md-1"></div>
-        <div class="col-md-5">
-          <div id="mapZipCode1" style="height: 200px;"></div>
-        </div>
-        <div class="col-md-5">
-          <div id="mapZipCode2" style="height: 200px;"></div>
-        </div>
-        <div class="col-md-1"></div>
-      </div><br>
-      <button type="submit" class="btn btn-primary">Compare Zip Codes</button>
-    </form>
-    <hr>
+      <div class="col-md-5">
+        <input id="zipCode2Input" onkeypress="return isNumber(event)" maxlength="5" type="text" class="form-control"
+          placeholder="Zip Code #2">
 
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="row mt-1">
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+        <div id="mapZipCode1" style="height: 200px;"></div>
+      </div>
+      <div class="col-md-5">
+        <div id="mapZipCode2" style="height: 200px;"></div>
+      </div>
+      <div class="col-md-1"></div>
+    </div><br>
+    <div class="row mt-1">
+      <div class="col-md-1"></div>
+      <div class="col-md-10"> <button type="button" id="compareZipCodeButton" class="btn btn-primary">Compare Zip
+          Codes</button></div>
+      <div class="col-md-1"></div>
+    </div>
+
+    <hr>
     <div class="card-body">
       <div class="row">
-        <div class="col-6" id="readingGraphArea">
+        <div class="col-12" id="readingGraphArea">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" id="popDensityGraphArea">
+          <div id='project_pop_chart'></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
           <h6>Costs of Reading</h6>
           <figure class="figure">
             <img src="assets/images/blankbarchart.png" class="figure-img img-fluid rounded"
               alt="A generic placeholder graph" id="readingGraph">
-            <figcaption class="figure-caption">Comparing the costs associated with magazine and newspaper subscriptions
+            <figcaption class="figure-caption">Comparing the costs associated with magazine and newspaper
+              subscriptions
               and non-subscriptions and books.<br><small>(100=National Average)</small></figcaption>
           </figure>
         </div>
-        <div class="col-6" id="popDensityGraphArea">
+        <div class="col-6">
           <h6>Population Density Comparison</h6>
           <figure class="figure">
             <img src="assets/images/blankpiechart.png" class="figure-img img-fluid rounded"
@@ -82,8 +95,6 @@
       </div>
     </div>
 
-
-
     <!-- Added link to the jQuery Library -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
@@ -96,13 +107,15 @@
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="assets/js/helpers.js"></script>
+    <script type="text/javascript" src="assets/js/attomdata.js"></script>
     <script type="text/javascript" src="assets/js/geolocation.js"></script>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUXdBkAnO21_I-Rp16IlMg6JDpVOsFF8s&libraries=places&callback=initEditClntInfoAutoComplete"
       async defer> </script>
 
-
+    <script type="text/javascript" src="assets/js/app.js"></script>
 
 </body>
 

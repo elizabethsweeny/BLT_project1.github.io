@@ -1,11 +1,6 @@
 $(document).ready(function () {
 
 
-    var ATTOM_API_KEY = '736f1130096aa92549d800921bca8e8c';
-    var ZILLOW_API_KEY = 'X1-ZWz1h1dha4cc97_68qz7';
-    var GOOGLE_API_KEY = 'AIzaSyDUXdBkAnO21_I-Rp16IlMg6JDpVOsFF8s';
-
-    var parseXml;
 
     //Variables for user input.
     //5 digit integer zip code.
@@ -45,58 +40,17 @@ $(document).ready(function () {
     // var zipCode2_param2_value;
     // var zipCode2_param2_fieldname;
 
+    $('#compareZipCodeButton').on('click', function (s, e) {
 
-    if (typeof window.DOMParser != "undefined") {
-        parseXml = function (xmlStr) {
-            return new window.DOMParser().parseFromString(xmlStr, "text/xml");
-        };
-    } else if (typeof window.ActiveXObject != "undefined" &&
-        new window.ActiveXObject("Microsoft.XMLDOM")) {
-        parseXml = function (xmlStr) {
-            var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
-            xmlDoc.async = "false";
-            xmlDoc.loadXML(xmlStr);
-            return xmlDoc;
-        };
-    } else {
-        throw new Error("No XML parser found");
-    }
+        zipCode1 = $('#zipCode1Input').val();
+        zipCode2 = $('#zipCode2Input').val();
 
-    function makeAjaxGetCall(queryURL, extraHeaders, dataParams, callBack) {
+        grabZipCodeData(zipCode1, zipCode2);
 
-        var ajaxHeaders = {
-            //'Access-Control-Allow-Origin': '*',
-            //'Access-Control-Allow-Methods': 'GET'
-        };
+    });
 
-        for (var key in extraHeaders) {
-            if (extraHeaders.hasOwnProperty(key)) {
-                ajaxHeaders[key] = extraHeaders[key];
-            }
-        }
 
-        $.ajax({
-                type: "GET",
-                //dataType: "json",
-                //contentType: 'text/json',
-                jsonp: "callback",
-                crossDomain: true,
-                headers: ajaxHeaders,
-                url: queryURL,
-                data: dataParams,
-                success: function (response, e) {
-                    callBack(response);
-                }
-            })
-            .done(function (data) {
-                console.log("done");
-            })
-            .fail(function (xhr, textStatus, errorThrown) {
-                console.log(xhr.responseText);
-                console.log(textStatus);
-            });
 
-    }
 
     $('#ATTOM_PROPERTY_ADDRESS_BUTTON').on('click', function (s, e) {
 
@@ -149,8 +103,6 @@ $(document).ready(function () {
 
     $('#ATTOM_COMMUNITY_ATTRIBUTES_BUTTON').on('click', function (s, e) {
 
-        //var zipCode1 = 94040;
-        //var url = 'https://search.onboard-apis.com/communityapi/v2.0.0/attribute/lookup';
         var url = ("https://search.onboard-apis.com/communityapi/v2.0.0/Area/Full/?AreaId=ZI" + zipCode1);
         var data = {}
         var headers = {
@@ -173,14 +125,3 @@ $(document).ready(function () {
 
     });
 });
-
-function isNumber(evt) {
-    evt = (evt) ? evt : window.event;
-    var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-        return false;
-    }
-    return true;
-}
-
-
