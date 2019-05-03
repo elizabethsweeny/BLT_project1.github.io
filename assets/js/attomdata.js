@@ -167,8 +167,9 @@ function grabZipCodeData(zipCode1, zipCode2) {
             var options = {
                 height: 500,
                 title: 'Projected population',
+                legend: { position: 'bottom', alignment: 'start' },
                 chartArea: {
-                    width: '50%'
+                    width: '80%'
                 },
                 //colors: ['#b0120a', '#ffab91'],
                 hAxis: {
