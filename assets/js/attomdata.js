@@ -30,11 +30,12 @@ function grabZipCodeData(zipCode1, zipCode2) {
             google.charts.load('current', {
                 packages: ['corechart', 'bar']
             });
-           
+
             google.charts.setOnLoadCallback(drawProjectedPopulationChart.bind(null, combinedResponse));
             google.charts.setOnLoadCallback(drawProjectedGenderPopulationChart.bind(null, combinedResponse));
             google.charts.setOnLoadCallback(drawAgePopulationChart.bind(null, combinedResponse));
-           
+            google.charts.setOnLoadCallback(drawHouseholdIncomeChart.bind(null, combinedResponse));
+            
             function drawAgePopulationChart(rawData) {
 
                 var zipCode1 = rawData.zipCode1Data.response.inputparameter.AreaId.substring(2);
@@ -167,7 +168,10 @@ function grabZipCodeData(zipCode1, zipCode2) {
             var options = {
                 height: 500,
                 title: 'Projected population',
-                legend: { position: 'bottom', alignment: 'start' },
+                legend: {
+                    position: 'bottom',
+                    alignment: 'start'
+                },
                 chartArea: {
                     width: '80%'
                 },
@@ -181,6 +185,93 @@ function grabZipCodeData(zipCode1, zipCode2) {
             chart1.draw(data1, options);
             var chart2 = new google.visualization.BarChart(document.getElementById('project_pop_chart2'));
             chart2.draw(data2, options);
+        }
+
+        function drawHouseholdIncomeChart(rawData) {
+
+            var zipCode1 = rawData.zipCode1Data.response.inputparameter.AreaId.substring(2);
+            var zipCode2 = rawData.response.inputparameter.AreaId.substring(2);
+            var zipCode1Data = rawData.zipCode1Data.response.result.package.item[0];
+            var zipCode2Data = rawData.response.result.package.item[0];
+
+            var data1 = google.visualization.arrayToDataTable([
+                [
+                    'Zip Code',
+                    '15-35',
+                    '35-50',
+                    '50-75',
+                    '75-100',
+                    '100-125',
+                    '125-150',
+                    '150-200',
+                    '200-250',
+                    '250-500',
+                    '500+'
+                ],
+                [
+                    zipCode1,
+                    Number.parseInt(zipCode1Data.hincy00_10) +
+                    Number.parseInt(zipCode1Data.hincy10_15) +
+                    Number.parseInt(zipCode1Data.hincy15_20) +
+                    Number.parseInt(zipCode1Data.hincy20_25) +
+                    Number.parseInt(zipCode1Data.hincy25_30) +
+                    Number.parseInt(zipCode1Data.hincy30_35),
+                    Number.parseInt(zipCode1Data.hincy35_40) +
+                    Number.parseInt(zipCode1Data.hincy40_45) +
+                    Number.parseInt(zipCode1Data.hincy45_50),
+                    Number.parseInt(zipCode1Data.hincy50_60) +
+                    Number.parseInt(zipCode1Data.hincy60_75),
+                    Number.parseInt(zipCode1Data.hincy75_100),
+                    Number.parseInt(zipCode1Data.hincy100_125),
+                    Number.parseInt(zipCode1Data.hincy125_150),
+                    Number.parseInt(zipCode1Data.hincy150_200),
+                    Number.parseInt(zipCode1Data.hincy200_250),
+                    Number.parseInt(zipCode1Data.hincy250_500),
+                    Number.parseInt(zipCode1Data.hincyGT_500)
+                ],
+                [
+                    zipCode2,
+                    Number.parseInt(zipCode2Data.hincy00_10) +
+                    Number.parseInt(zipCode2Data.hincy10_15) +
+                    Number.parseInt(zipCode2Data.hincy15_20) +
+                    Number.parseInt(zipCode2Data.hincy20_25) +
+                    Number.parseInt(zipCode2Data.hincy25_30) +
+                    Number.parseInt(zipCode2Data.hincy30_35),
+                    Number.parseInt(zipCode2Data.hincy35_40) +
+                    Number.parseInt(zipCode2Data.hincy40_45) +
+                    Number.parseInt(zipCode2Data.hincy45_50),
+                    Number.parseInt(zipCode2Data.hincy50_60) +
+                    Number.parseInt(zipCode2Data.hincy60_75),
+                    Number.parseInt(zipCode2Data.hincy75_100),
+                    Number.parseInt(zipCode2Data.hincy100_125),
+                    Number.parseInt(zipCode2Data.hincy125_150),
+                    Number.parseInt(zipCode2Data.hincy150_200),
+                    Number.parseInt(zipCode2Data.hincy200_250),
+                    Number.parseInt(zipCode2Data.hincy250_500),
+                    Number.parseInt(zipCode2Data.hincyGT_500)
+                ]
+            ]);
+
+            var options = {
+                height: 500,
+                width: '100%',
+                title: 'Number of Households by Income',
+                legend: {
+                    position: 'bottom',
+                    alignment: 'start'
+                },
+                chartArea: {
+                    width: '80%'
+                },
+                //colors: ['#b0120a', '#ffab91'],
+                hAxis: {
+                    title: 'Income in thousands of $',
+                    minValue: 0
+                }
+            };
+            var chart1 = new google.visualization.BarChart(document.getElementById('household_income_chart'));
+            chart1.draw(data1, options);
+
         }
     }
 
