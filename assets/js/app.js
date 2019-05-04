@@ -18,6 +18,7 @@ $(document).ready(function () {
         zipCode1 = $('#zipCode1Input').val();
         zipCode2 = $('#zipCode2Input').val();
         $("#compareZipCodeButton").attr("disabled", true);
+        $('#shareReportButton').attr("disabled", true);
         $("#compareZipCodeButton").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>' +
             '&nbsp;&nbsp;Retrieving Data...');
         $('#loadingSign').removeClass('hiddenSign');
