@@ -11,6 +11,7 @@ $(document).ready(function () {
 
     $('#copyLinkToClipBoardButton').on('click', function (s, e) {
         copyToClipboard(document.getElementById("reportLinkInput"));
+        fallbackCopyTextToClipboard($('#reportLinkInput').val());
     });
 
     $('#compareZipCodeButton').on('click', function (s, e) {
