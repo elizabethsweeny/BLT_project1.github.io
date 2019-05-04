@@ -1,7 +1,7 @@
 # BLT_project1 - UC Berkeley Ext. Bootcamp: Project #1
 
-GitHub Repository: https://github.com/elizabethsweeny/BLT_project1.github.io
-Website: https://elizabethsweeny.github.io/BLT_project1.github.io/
+* GitHub Repository: https://github.com/elizabethsweeny/BLT_project1.github.io
+* Website: https://elizabethsweeny.github.io/BLT_project1.github.io/
 
 ## Foreword
 
@@ -29,8 +29,8 @@ Once a report is created, it is possible to create a shareable link (Links are p
 
 ## Contributors
 
-Fabien Mansoubi - https://github.com/fabienmp
-Brandon Gunnerson - https://github.com/Gunnerson
-Elizabeth Sweeny - https://github.com/elizabethsweeny/
+* Fabien Mansoubi - https://github.com/fabienmp
+* Brandon Gunnerson - https://github.com/Gunnerson
+* Elizabeth Sweeny - https://github.com/elizabethsweeny/
 
 
