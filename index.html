@@ -2,20 +2,89 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>BLT Project</title>
+  <title>BLT Project</title>
 
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
-<body class="container">
+<body class="container-fluid">
+
+  <div class="mt-3 card text-center">
+    <div class="card-header">
+      <h3>BLT Team: Project 1</h3>
+    </div>
+    <br>
+    <h6>Input two zip codes to compare statistics about each area.</h6>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+        <input id="zipCode1Input" onkeypress="return isNumber(event)" maxlength="5" type="text" class="form-control"
+          placeholder="Zip Code #1">
+      </div>
+      <div class="col-md-5">
+        <input id="zipCode2Input" onkeypress="return isNumber(event)" maxlength="5" type="text" class="form-control"
+          placeholder="Zip Code #2">
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="row mt-1">
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+        <div id="mapZipCode1" style="height: 200px;"></div>
+      </div>
+      <div class="col-md-5">
+        <div id="mapZipCode2" style="height: 200px;"></div>
+      </div>
+      <div class="col-md-1"></div>
+    </div><br>
+    <div class="row mt-1">
+      <div class="col-md-1"></div>
+      <div class="col-md-12">
+        <button type="button" id="compareZipCodeButton" class="btn btn-primary">Compare Zip
+          Codes</button>
+        <button type="button" id="shareReportButton" class="btn btn-primary" disabled>Share Report</button>
+      </div>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-center hiddenSign" id='loadingSign'>
+      <div class="spinner-border m-5" role="status" style="width: 20rem; height: 20rem;">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+    <!--<div class="row">
+        <div class="col-6">
+          <h6>Costs of Reading</h6>
+          <figure class="figure">
+            <img src="assets/images/blankbarchart.png" class="figure-img img-fluid rounded"
+              alt="A generic placeholder graph" id="readingGraph">
+            <figcaption class="figure-caption">Comparing the costs associated with magazine and newspaper
+              subscriptions
+              and non-subscriptions and books.<br><small>(100=National Average)</small></figcaption>
+          </figure>
+        </div>
+        <div class="col-6">
+          <h6>Population Density Comparison</h6>
+          <figure class="figure">
+            <img src="assets/images/blankpiechart.png" class="figure-img img-fluid rounded"
+              alt="A generic placeholder graph" id="populationGraph">
+            <figcaption class="figure-caption">Compares five different statistics:
+              <br><small>Population Density (# of people / square mile)</small>
+              <br><small>Projected Population (in 10 years)</small>
+              <br><small>Median Age of Population</small>
+              <br><small>Average Household Size (# of people/household)</small>
+              <br><small>Projected Household Size (# of people/household in 10 years)</small></figcaption>
+          </figure>
+        </div>
+      </div>-->
 
   <div class="card text-center">
         <div class="card-header">
@@ -65,22 +134,117 @@
           </div>
         <div class="card-footer text-muted">
           Learn more about the team! <br><strong>Github usernames: </strong>fabienmp, gunnerson, elizabethsweeny
+    <div id="carouselExampleControls" class="carousel slide hiddenSign" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="row">
+            <div class="col-md-12">
+              <div id='household_income_chart'></div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row">
+            <div class="col-md-6">
+              <div id='project_pop_chart1'></div>
+            </div>
+            <div class="col-md-6">
+              <div id='project_pop_chart2'></div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row">
+            <div class="col-md-3">
+              <div id='gender_pop_chart1'></div>
+            </div>
+            <div class="col-md-3">
+              <div id='age_pop_chart1'></div>
+            </div>
+            <div class="col-md-3">
+              <div id='gender_pop_chart2'></div>
+            </div>
+            <div class="col-md-3">
+              <div id='age_pop_chart2'></div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row">
+            <div class="col-md-6">
+                <div id='weather_risk_chart1'></div>
+            </div>
+            <div class="col-md-6">
+                <div id='weather_risk_chart2'></div>
+            </div>
+          </div>
         </div>
       </div>
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
 
-    <!-- Added link to the jQuery Library -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/js/app.js"></script>
+    <div class="card-footer text-muted">
+      Learn more about the team! <br><strong>Github usernames: </strong>fabienmp, gunnerson, elizabethsweeny
+    </div>
+  </div>
+
+  <div id="sharedLinkModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="sharedLinkModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              Share this link with anyone to view this report.
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="input-group mb-3">
+                <input id='reportLinkInput' type="text" class="form-control" placeholder="Report Link"
+                  aria-label="Report Link" aria-describedby="basic-addon2" disabled>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" id='copyLinkToClipBoardButton'>Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Added link to the jQuery Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <!-- Firebase JavaScript Link -->
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="assets/js/helpers.js?r=3"></script>
+  <script type="text/javascript" src="assets/js/attomdata.js?r=3"></script>
+  <script type="text/javascript" src="assets/js/share.js?r=3"></script>
+  <script type="text/javascript" src="assets/js/geolocation.js?r=3"></script>
+  <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUXdBkAnO21_I-Rp16IlMg6JDpVOsFF8s&libraries=places&callback=initEditClntInfoAutoComplete"
+    async defer> </script>
+
+  <script type="text/javascript" src="assets/js/app.js?r=3"></script>
 
 </body>
 

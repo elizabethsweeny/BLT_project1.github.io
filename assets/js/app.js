@@ -1,100 +1,41 @@
 $(document).ready(function () {
 
-    var ATTOM_API_KEY = '736f1130096aa92549d800921bca8e8c';
-    var ZILLOW_API_KEY = 'X1-ZWz1h1dha4cc97_68qz7';
-
-    var parseXml;
-
-  //Variables for user input.
-    //5 digit integer zip code.
-        var zipCode1 = 0;
-        var zipCode2 = 0;
-
-    //Graph 1: Reading Analysis
-        //Cost associated with magazing and newspaper subscriptions, nonsubscriptions and books. National average is 100.
-            //(response.response.result.package.item[0].expread);
-            var zipCode1_expread = 0;
-            var zipCode2_expread = 0;
-
-    //Graph 2: Foreclosure and Crime Comparison
-        //Total crime risk. Average national value is 100.
-        //(response.response.result.package.item[0].cocrmcytotc);
-            var zipCode1_cocrmcytotc = 0;
-            var zipCode2_cocrmcytotc = 0;
-        //Total number of dwellings vacant in the area.
-        //(response.response.result.package.item[0].dwlvacnt);
-            var zipCode1_dwlvacnt = 0;
-            var zipCode2_dwlvacnt = 0;
-
-    //Below is a scalable implementation that we may decide to use later on. For now we are going to use a hardcoded variable schema.
-            // //First zip code, first paramater value and field name from API.
-            // var zipCode1_param1_value;
-            // var zipCode1_param1_fieldname;
-
-            // //First zip code, second paramater value and field name from API.
-            // var zipCode1_param2_value;
-            // var zipCode1_param2_fieldname;
-
-            // //Second zip code, first paramater value and field name from API.
-            // var zipCode2_param1_value;
-            // var zipCode2_param1_fieldname;
-
-            // //Second zip code, second paramater value and field name from API.
-            // var zipCode2_param2_value;
-            // var zipCode2_param2_fieldname;
-
-
-    if (typeof window.DOMParser != "undefined") {
-        parseXml = function (xmlStr) {
-            return new window.DOMParser().parseFromString(xmlStr, "text/xml");
-        };
-    } else if (typeof window.ActiveXObject != "undefined" &&
-        new window.ActiveXObject("Microsoft.XMLDOM")) {
-        parseXml = function (xmlStr) {
-            var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
-            xmlDoc.async = "false";
-            xmlDoc.loadXML(xmlStr);
-            return xmlDoc;
-        };
-    } else {
-        throw new Error("No XML parser found");
+    var reportID = $.urlParam('REPORT_ID');
+    if (reportID !== undefined && reportID != null) {
+        $("#compareZipCodeButton").hide();
+        $("#shareReportButton").hide();
+        $("#zipCode1Input").attr("disabled", true);
+        $("#zipCode2Input").attr("disabled", true);
+        retrieveReportInfo(reportID);
     }
 
-    function makeAjaxGetCall(queryURL, extraHeaders, dataParams, callBack) {
+    $('#copyLinkToClipBoardButton').on('click', function (s, e) {
+        copyToClipboard(document.getElementById("reportLinkInput"));
+        fallbackCopyTextToClipboard($('#reportLinkInput').val());
+    });
 
-        var ajaxHeaders = {
-            //'Access-Control-Allow-Origin': '*',
-            //'Access-Control-Allow-Methods': 'GET'
-        };
+    $('#compareZipCodeButton').on('click', function (s, e) {
 
-        for (var key in extraHeaders) {
-            if (extraHeaders.hasOwnProperty(key)) {
-                ajaxHeaders[key] = extraHeaders[key];
-            }
-        }
+        zipCode1 = $('#zipCode1Input').val();
+        zipCode2 = $('#zipCode2Input').val();
+        $("#compareZipCodeButton").attr("disabled", true);
+        $('#shareReportButton').attr("disabled", true);
+        $("#compareZipCodeButton").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>' +
+            '&nbsp;&nbsp;Retrieving Data...');
+        $('#loadingSign').removeClass('hiddenSign');
+        $('#carouselExampleControls').addClass('hiddenSign');
+        grabZipCodeData(zipCode1, zipCode2);
 
-        $.ajax({
-                type: "GET",
-                //dataType: "json",
-                //contentType: 'text/json',
-                jsonp: "callback",
-                crossDomain: true,
-                headers: ajaxHeaders,
-                url: queryURL,
-                data: dataParams,
-                success: function (response, e) {
-                    callBack(response);
-                }
-            })
-            .done(function (data) {
-                console.log("done");
-            })
-            .fail(function (xhr, textStatus, errorThrown) {
-                console.log(xhr.responseText);
-                console.log(textStatus);
-            });
+    });
 
-    }
+    $('#shareReportButton').on('click', function (s, e) {
+
+        zipCode1 = $('#zipCode1Input').val();
+        zipCode2 = $('#zipCode2Input').val();
+
+        var reportId = createShareReportLink(zipCode1, zipCode2);
+
+    });
 
     $('#ATTOM_PROPERTY_ADDRESS_BUTTON').on('click', function (s, e) {
 
@@ -147,11 +88,8 @@ $(document).ready(function () {
 
     $('#ATTOM_COMMUNITY_ATTRIBUTES_BUTTON').on('click', function (s, e) {
 
-        //var zipCode1 = 94040;
-        //var url = 'https://search.onboard-apis.com/communityapi/v2.0.0/attribute/lookup';
-        var url = ("https://search.onboard-apis.com/communityapi/v2.0.0/Area/Full/?AreaId=ZI"+ zipCode1);
-        var data = {
-        }
+        var url = ("https://search.onboard-apis.com/communityapi/v2.0.0/Area/Full/?AreaId=ZI" + zipCode1);
+        var data = {}
         var headers = {
             'Accept': 'application/json',
             'apikey': '736f1130096aa92549d800921bca8e8c'
@@ -159,11 +97,11 @@ $(document).ready(function () {
 
         function responseHandler(response) {
             var printedText = JSON.stringify(response, undefined, 4);
-            
+
             //TESTING CONSOLE
-                //console.log(response);
-                //console.log(response.response.result.package.item[0].popdnsty);
-                
+            //console.log(response);
+            //console.log(response.response.result.package.item[0].popdnsty);
+
             document.getElementById("APIreturn").value = printedText;
             document.getElementById('ATTOM_COMMUNITY_ATTRIBUTES__textarea').value = printedText;
         }
@@ -171,5 +109,4 @@ $(document).ready(function () {
         makeAjaxGetCall(url, headers, data, responseHandler);
 
     });
-
 });
