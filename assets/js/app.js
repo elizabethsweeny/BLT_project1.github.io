@@ -1,44 +1,17 @@
 $(document).ready(function () {
 
+    var reportID = $.urlParam('REPORT_ID');
+    if (reportID !== undefined && reportID != null) {
+        $("#compareZipCodeButton").hide();
+        $("#shareReportButton").hide();
+        $("#zipCode1Input").attr("disabled", true);
+        $("#zipCode2Input").attr("disabled", true);
+        retrieveReportInfo(reportID);
+    }
 
-
-    //Variables for user input.
-    //5 digit integer zip code.
-    var zipCode1 = 0;
-    var zipCode2 = 0;
-
-    //Graph 1: Reading Analysis
-    //Cost associated with magazing and newspaper subscriptions, nonsubscriptions and books. National average is 100.
-    //(response.response.result.package.item[0].expread);
-    var zipCode1_expread = 0;
-    var zipCode2_expread = 0;
-
-    //Graph 2: Foreclosure and Crime Comparison
-    //Total crime risk. Average national value is 100.
-    //(response.response.result.package.item[0].cocrmcytotc);
-    var zipCode1_cocrmcytotc = 0;
-    var zipCode2_cocrmcytotc = 0;
-    //Total number of dwellings vacant in the area.
-    //(response.response.result.package.item[0].dwlvacnt);
-    var zipCode1_dwlvacnt = 0;
-    var zipCode2_dwlvacnt = 0;
-
-    //Below is a scalable implementation that we may decide to use later on. For now we are going to use a hardcoded variable schema.
-    // //First zip code, first paramater value and field name from API.
-    // var zipCode1_param1_value;
-    // var zipCode1_param1_fieldname;
-
-    // //First zip code, second paramater value and field name from API.
-    // var zipCode1_param2_value;
-    // var zipCode1_param2_fieldname;
-
-    // //Second zip code, first paramater value and field name from API.
-    // var zipCode2_param1_value;
-    // var zipCode2_param1_fieldname;
-
-    // //Second zip code, second paramater value and field name from API.
-    // var zipCode2_param2_value;
-    // var zipCode2_param2_fieldname;
+    $('#copyLinkToClipBoardButton').on('click', function (s, e) {
+        copyToClipboard(document.getElementById("reportLinkInput"));
+    });
 
     $('#compareZipCodeButton').on('click', function (s, e) {
 
@@ -53,8 +26,14 @@ $(document).ready(function () {
 
     });
 
+    $('#shareReportButton').on('click', function (s, e) {
 
+        zipCode1 = $('#zipCode1Input').val();
+        zipCode2 = $('#zipCode2Input').val();
 
+        var reportId = createShareReportLink(zipCode1, zipCode2);
+
+    });
 
     $('#ATTOM_PROPERTY_ADDRESS_BUTTON').on('click', function (s, e) {
 

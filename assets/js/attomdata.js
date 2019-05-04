@@ -26,6 +26,7 @@ function grabZipCodeData(zipCode1, zipCode2) {
             $("#compareZipCodeButton").html('Compare Zip Codes');
             $('#loadingSign').addClass('hiddenSign');
             $('#carouselExampleControls').removeClass('hiddenSign');
+            $('#shareReportButton').attr("disabled", false);
 
             google.charts.load('current', {
                 packages: ['corechart', 'bar']
