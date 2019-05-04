@@ -6,6 +6,7 @@
 ## Foreword
 
 Many of us looking for the right area to settle. It is often challenging to decide on the proper place to invest and buy a property. Many websites offer data regarding the demographics of a certain zip code.
+
 Very few currently have the ability to compare multiple zip codes and when they do, it's often in the form of an indigestible blob of tabular data.
 
 ## Getting Started
