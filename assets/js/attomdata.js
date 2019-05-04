@@ -29,14 +29,104 @@ function grabZipCodeData(zipCode1, zipCode2) {
             $('#shareReportButton').attr("disabled", false);
 
             google.charts.load('current', {
-                packages: ['corechart', 'bar']
+                packages: ['corechart', 'bar', 'gauge']
             });
 
             google.charts.setOnLoadCallback(drawProjectedPopulationChart.bind(null, combinedResponse));
             google.charts.setOnLoadCallback(drawProjectedGenderPopulationChart.bind(null, combinedResponse));
             google.charts.setOnLoadCallback(drawAgePopulationChart.bind(null, combinedResponse));
             google.charts.setOnLoadCallback(drawHouseholdIncomeChart.bind(null, combinedResponse));
-            
+            google.charts.setOnLoadCallback(drawSafetyChart.bind(null, combinedResponse));
+
+            function drawSafetyChart(rawData) {
+
+                var zipCode1 = rawData.zipCode1Data.response.inputparameter.AreaId.substring(2);
+                var zipCode2 = rawData.response.inputparameter.AreaId.substring(2);
+                var zipCode1Data = rawData.zipCode1Data.response.result.package.item[0];
+                var zipCode2Data = rawData.response.result.package.item[0];
+
+
+                var dataZipCode1 = google.visualization.arrayToDataTable([
+                    ['Label', 'Value'],
+                    ['Assault',  Number.parseInt(zipCode1Data.cocrmcyasst)],
+                    ['Burglary',  Number.parseInt(zipCode1Data.cocrmcyburg)],
+                    ['Larceny',  Number.parseInt(zipCode1Data.cocrmcylarc)],
+                    ['Murder',  Number.parseInt(zipCode1Data.cocrmcymurd)]
+                ]);
+
+                var dataZipCode2 = google.visualization.arrayToDataTable([
+                    ['Label', 'Value'],
+                    ['Assault',  Number.parseInt(zipCode2Data.cocrmcyasst)],
+                    ['Burglary',  Number.parseInt(zipCode2Data.cocrmcyburg)],
+                    ['Larceny',  Number.parseInt(zipCode2Data.cocrmcylarc)],
+                    ['Murder',  Number.parseInt(zipCode2Data.cocrmcymurd)]
+                ]);
+
+                var options = {
+                    width: 500,
+                    height: 500,
+                    redFrom: 125,
+                    redTo: 200,
+                    yellowFrom: 100,
+                    yellowTo: 125,
+                    minorTicks: 5,
+                    max: 200
+                };
+
+                var chart1 = new google.visualization.Gauge(document.getElementById('weather_risk_chart1'));
+                chart1.draw(dataZipCode1, options);
+                var chart2 = new google.visualization.Gauge(document.getElementById('weather_risk_chart2'));
+                chart2.draw(dataZipCode2, options);
+            }
+
+            function drawWeatherRiskChart(rawData) {
+
+                var zipCode1 = rawData.zipCode1Data.response.inputparameter.AreaId.substring(2);
+                var zipCode2 = rawData.response.inputparameter.AreaId.substring(2);
+                var zipCode1Data = rawData.zipCode1Data.response.result.package.item[0];
+                var zipCode2Data = rawData.response.result.package.item[0];
+
+
+                var dataZipCode1 = google.visualization.arrayToDataTable([
+                    ['Label', 'Value'],
+                    ['Ozone Index',  Number.parseInt(zipCode1Data.ozone)],
+                    ['Particulate Matter Index',  Number.parseInt(zipCode1Data.pm10)],
+                    ['Hail Index',  Number.parseInt(zipCode1Data.rskcyhanx)],
+                    ['Hurricane Index',  Number.parseInt(zipCode1Data.rskcyhunx)],
+                    ['Earthquake Risk',  Number.parseInt(zipCode1Data.rskcyquak)],
+                    ['Weather Risk',  Number.parseInt(zipCode1Data.rskcyrisk)],
+                    ['Tornado Index',  Number.parseInt(zipCode1Data.rskcytonx)],
+                    ['Wind Index',  Number.parseInt(zipCode1Data.rskcywinx)]
+                ]);
+
+                var dataZipCode2 = google.visualization.arrayToDataTable([
+                    ['Label', 'Value'],
+                    ['Ozone Index',  Number.parseInt(zipCode2Data.ozone)],
+                    ['Particulate Matter Index',  Number.parseInt(zipCode2Data.pm10)],
+                    ['Hail Index',  Number.parseInt(zipCode2Data.rskcyhanx)],
+                    ['Hurricane Index',  Number.parseInt(zipCode2Data.rskcyhunx)],
+                    ['Earthquake Risk',  Number.parseInt(zipCode2Data.rskcyquak)],
+                    ['Weather Risk',  Number.parseInt(zipCode2Data.rskcyrisk)],
+                    ['Tornado Index',  Number.parseInt(zipCode2Data.rskcytonx)],
+                    ['Wind Index',  Number.parseInt(zipCode2Data.rskcywinx)]
+                ]);
+
+                var options = {
+                    width: 500,
+                    height: 500,
+                    redFrom: 90,
+                    redTo: 100,
+                    yellowFrom: 75,
+                    yellowTo: 90,
+                    minorTicks: 5
+                };
+
+                var chart1 = new google.visualization.Gauge(document.getElementById('weather_risk_chart1'));
+                chart1.draw(dataZipCode1, options);
+                var chart2 = new google.visualization.Gauge(document.getElementById('weather_risk_chart2'));
+                chart2.draw(dataZipCode2, options);
+            }
+
             function drawAgePopulationChart(rawData) {
 
                 var zipCode1 = rawData.zipCode1Data.response.inputparameter.AreaId.substring(2);
@@ -228,7 +318,7 @@ function grabZipCodeData(zipCode1, zipCode2) {
                     Number.parseInt(zipCode1Data.hincy150_200),
                     Number.parseInt(zipCode1Data.hincy200_250),
                     Number.parseInt(zipCode1Data.hincy250_500),
-                    Number.parseInt(zipCode1Data.hincyGT_500)
+                    Number.parseInt(zipCode1Data.hincygt_500)
                 ],
                 [
                     zipCode2,
@@ -249,7 +339,7 @@ function grabZipCodeData(zipCode1, zipCode2) {
                     Number.parseInt(zipCode2Data.hincy150_200),
                     Number.parseInt(zipCode2Data.hincy200_250),
                     Number.parseInt(zipCode2Data.hincy250_500),
-                    Number.parseInt(zipCode2Data.hincyGT_500)
+                    Number.parseInt(zipCode2Data.hincygt_500)
                 ]
             ]);
 
