@@ -31,7 +31,7 @@ Once a report is created, it is possible to create a shareable link (Links are p
 ## Contributors
 
 * Fabien Mansoubi - https://github.com/fabienmp
-* Brandon Gunnerson - https://github.com/Gunnerson
+
 * Elizabeth Sweeny - https://github.com/elizabethsweeny/
 
 
